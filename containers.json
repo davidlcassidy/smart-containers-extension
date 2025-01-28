@@ -1,0 +1,40 @@
+{
+    "containers": [
+        {
+            "name": "Amazon",
+            "defaultColor": "orange",
+            "domains": [
+                "amazon.co.uk",
+                "amazon.com",
+                "amazon.de"
+            ]
+        },
+        {
+            "name": "Facebook",
+            "defaultColor": "blue",
+            "domains": [
+                "facebook.com",
+                "facebook.design",
+                "facebook.net",
+                "facebookbrand.com",
+                "facebookstudio.com",
+                "fb.com",
+                "fb.me",
+                "internet.org",
+                "messenger.com",
+                "meta.com",
+                "oculus.com",
+                "workplace.com"
+            ]
+        },
+        {
+            "name": "Google",
+            "defaultColor": "green",
+            "domains": [
+                "gmail.com",
+                "google.com",
+                "youtube.com"
+            ]
+        }
+    ]
+}

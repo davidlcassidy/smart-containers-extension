@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Containers</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f7fa;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    p.description {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-top: 20px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    #dashboardForm {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .container-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%; /* Full-width boxes */
+    }
+
+    .color-picker {
+      display: flex;
+      gap: 8px;
+    }
+
+    .color-circle {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .color-circle:hover {
+      transform: scale(1.1);
+      border-color: #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>Smart Containers</h1>
+  <p class="description">
+    Manage your browsing containers with ease. Assign websites to specific containers and customize their appearance.
+  </p>
+  <h2>Website Containers</h2>
+  <form id="dashboardForm"></form>
+  <script src="dashboard.js"></script>
+</body>
+</html>
