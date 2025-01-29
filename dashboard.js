@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", async () => {
   let CONTAINER_CONFIG = {};
   const CONTAINER_COLOR_OPTIONS = ["red", "orange", "yellow", "green", "blue", "purple", "pink"];
+  
+  let data = await browser.storage.local.get("containerSettings");
+  let localContainerSettings = data.containerSettings || {};
 
   try {
     const response = await fetch(browser.runtime.getURL("configs/containers.json"));
@@ -18,9 +21,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       const containerBox = document.createElement("div");
       containerBox.className = "container-box";
       
-      containerBox.dataset.enabled = container.enabledDefault ? "true" : "false";
+	  const isContainerEnabled = localContainerSettings[container.name]?.enabled || container.enabledDefault
+      containerBox.dataset.enabled = isContainerEnabled ? "true" : "false";
       containerBox.dataset.color = CONTAINER_COLOR_OPTIONS[0];
-      containerBox.style.backgroundColor = container.enabledDefault ? "#d4f8d4" : "#fde2e2";
+      containerBox.style.backgroundColor = isContainerEnabled ? "#d4f8d4" : "#fde2e2";
 
       // Toggle enable/disable state on click
       containerBox.addEventListener("click", async (e) => {
@@ -76,8 +80,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   async function saveSettings() {
-    let data = await browser.storage.local.get("containerSettings");
-    let containerSettings = data.containerSettings || {};
     const containerBoxes = document.querySelectorAll(".container-box");
     let containersToUpdate = [];
     let localSettingsChanged = false;
@@ -86,19 +88,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       const name = CONTAINER_CONFIG.containers[index].name;
       const enabled = box.dataset.enabled === "true";
       const color = box.dataset.color || CONTAINER_COLOR_OPTIONS[0];
-      const savedSettings = containerSettings[name] || {};
+      const savedSettings = localContainerSettings[name] || {};
 
       const enabledStateChanged = savedSettings.enabled !== enabled;
       const containerColorChanged = savedSettings.color !== color;
+
       if (enabledStateChanged || containerColorChanged) {
-        containerSettings[name] = { enabled, color };
+        localContainerSettings[name] = { enabled, color };
         containersToUpdate.push({ name, enabled, color });
         localSettingsChanged = true;
       }
     }
 
     if (localSettingsChanged) {
-      await browser.storage.local.set({ containerSettings });
+      await browser.storage.local.set({ containerSettings: localContainerSettings });
     }
 
     for (const { name, color } of containersToUpdate) {

@@ -37,13 +37,39 @@ async function moveTabToContainer(details, containerId) {
   await browser.tabs.remove(details.tabId);
 }
 
+function isMatchingDomain(url, pattern) {
+  const multiLevelTLDs = ["co.in", "co.jp", "co.mx", "co.nz", "co.tr", "co.uk", "com.au", "com.br", "com.sa"];
+  const currentUrl = new URL(url);
+  let domain = currentUrl.hostname;
+
+  const parts = domain.split(".");
+  
+  let baseDomain;
+  if (parts.length > 2) {
+    const lastTwo = parts.slice(-2).join(".");
+    if (multiLevelTLDs.includes(lastTwo)) {
+      baseDomain = parts.slice(-3).join(".");
+    } else {
+      baseDomain = parts.slice(-2).join(".");
+    }
+  } else {
+    baseDomain = domain;
+  }
+
+  if (pattern.endsWith(".*")) {
+    return baseDomain.startsWith(pattern.slice(0, -2) + ".");
+  }
+
+  return baseDomain === pattern;
+}
+
+
+
 browser.webRequest.onBeforeRequest.addListener(
   async (details) => {
     let shouldHaveContainer = false;
 
     const tab = await browser.tabs.get(details.tabId);
-    const url = new URL(details.url);
-    const domain = url.hostname;
 
     const localStorageData = await browser.storage.local.get("containerSettings");
     const localContainerSettings = localStorageData.containerSettings || {};
@@ -58,7 +84,7 @@ browser.webRequest.onBeforeRequest.addListener(
         continue;
       }
 
-      const doesDomainMatchContainer = domains.some((d) => domain.endsWith(d));
+      const doesDomainMatchContainer = domains.some((d) => isMatchingDomain(details.url, d));
       if (doesDomainMatchContainer) {
 		shouldHaveContainer = true;
 

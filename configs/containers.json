@@ -2,39 +2,28 @@
     "containers": [
         {
             "name": "Amazon",
-			"displayName": "Amazon",
+            "displayName": "Amazon",
             "enabledDefault": true,
-            "domains": [
-                "amazon.co.uk",
-                "amazon.com",
-                "amazon.de"
-            ]
+            "domains": [ "amazon.*" ]
         },
         {
             "name": "BuzzFeed",
-			"displayName": "BuzzFeed",
+            "displayName": "BuzzFeed",
             "enabledDefault": false,
-            "domains": [
-                "buzzfeed.com"
-            ]
+            "domains": [ "buzzfeed.com" ]
         },
         {
             "name": "eBay",
-			"displayName": "eBay",
+            "displayName": "eBay",
             "enabledDefault": false,
-            "domains": [
-                "ebay.com",
-                "ebay.co.uk"
-            ]
+            "domains": [ "ebay.*" ]
         },
         {
             "name": "Facebook",
-			"displayName": "Facebook",
+            "displayName": "Facebook",
             "enabledDefault": true,
             "domains": [
-                "facebook.com",
-                "facebook.design",
-                "facebook.net",
+                "facebook.*",
                 "facebookbrand.com",
                 "facebookstudio.com",
                 "fb.com",
@@ -48,51 +37,43 @@
         },
         {
             "name": "Google",
-			"displayName": "Google",
+            "displayName": "Google",
             "enabledDefault": true,
             "domains": [
                 "gmail.com",
-                "google.com",
+                "google.*",
                 "youtube.com"
             ]
         },
         {
             "name": "LinkedIn",
-			"displayName": "LinkedIn",
+            "displayName": "LinkedIn",
             "enabledDefault": true,
-            "domains": [
-                "linkedin.com"
-            ]
+            "domains": [ "linkedin.com" ]
         },
         {
             "name": "Reddit",
-			"displayName": "Reddit",
+            "displayName": "Reddit",
             "enabledDefault": true,
-            "domains": [
-                "reddit.com"
-            ]
+            "domains": [ "reddit.com" ]
         },
         {
             "name": "Spotify",
-			"displayName": "Spotify",
+            "displayName": "Spotify",
             "enabledDefault": true,
-            "domains": [
-                "spotify.com"
-            ]
+            "domains": [ "spotify.com" ]
         },
         {
             "name": "TikTok",
-			"displayName": "TikTok",
+            "displayName": "TikTok",
             "enabledDefault": true,
-            "domains": [
-                "tiktok.com"
-            ]
+            "domains": [ "tiktok.com" ]
         },
         {
             "name": "Twitter / X",
-			"displayName": "Twitter / X",
+            "displayName": "Twitter / X",
             "enabledDefault": true,
-            "domains": [
+            "domains": [ 
                 "t.co",
                 "twitter.com",
                 "x.com"
