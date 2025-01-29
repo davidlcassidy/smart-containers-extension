@@ -1,7 +1,7 @@
 let CONTAINER_CONFIG = {};
 const DEFAULT_CONTAINER_IDS = [null, "firefox-default"];
 
-fetch(browser.runtime.getURL("containers.json"))
+fetch(browser.runtime.getURL("configs/containers.json"))
   .then((response) => response.json())
   .then((jsonData) => {
     try {
@@ -49,11 +49,11 @@ browser.webRequest.onBeforeRequest.addListener(
     const localContainerSettings = localStorageData.containerSettings || {};
 
     for (const container of CONTAINER_CONFIG.containers) {
-      const { name, defaultColor, domains } = container;
+      const { name, enabledDefault, domains } = container;
 
       const localContainerSetting = localContainerSettings[name] || {};
 
-	  const isContainerEnabled = localContainerSetting.enabled !== false;
+	  const isContainerEnabled = localContainerSetting.enabled ?? container.enabledDefault;
       if (!isContainerEnabled) {
         continue;
       }
@@ -62,7 +62,7 @@ browser.webRequest.onBeforeRequest.addListener(
       if (doesDomainMatchContainer) {
 		shouldHaveContainer = true;
 
-		const containerId = await findOrCreateContainer(name, localContainerSetting.color || defaultColor, "fence");
+		const containerId = await findOrCreateContainer(name, localContainerSetting.color || "red", "fence");
 		const isAlreadyInCorrectContainer = tab.cookieStoreId === containerId
         if (isAlreadyInCorrectContainer) {
           break;

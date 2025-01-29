@@ -1,0 +1,102 @@
+{
+    "containers": [
+        {
+            "name": "Amazon",
+			"displayName": "Amazon",
+            "enabledDefault": true,
+            "domains": [
+                "amazon.co.uk",
+                "amazon.com",
+                "amazon.de"
+            ]
+        },
+        {
+            "name": "BuzzFeed",
+			"displayName": "BuzzFeed",
+            "enabledDefault": false,
+            "domains": [
+                "buzzfeed.com"
+            ]
+        },
+        {
+            "name": "eBay",
+			"displayName": "eBay",
+            "enabledDefault": false,
+            "domains": [
+                "ebay.com",
+                "ebay.co.uk"
+            ]
+        },
+        {
+            "name": "Facebook",
+			"displayName": "Facebook",
+            "enabledDefault": true,
+            "domains": [
+                "facebook.com",
+                "facebook.design",
+                "facebook.net",
+                "facebookbrand.com",
+                "facebookstudio.com",
+                "fb.com",
+                "fb.me",
+                "internet.org",
+                "messenger.com",
+                "meta.com",
+                "oculus.com",
+                "workplace.com"
+            ]
+        },
+        {
+            "name": "Google",
+			"displayName": "Google",
+            "enabledDefault": true,
+            "domains": [
+                "gmail.com",
+                "google.com",
+                "youtube.com"
+            ]
+        },
+        {
+            "name": "LinkedIn",
+			"displayName": "LinkedIn",
+            "enabledDefault": true,
+            "domains": [
+                "linkedin.com"
+            ]
+        },
+        {
+            "name": "Reddit",
+			"displayName": "Reddit",
+            "enabledDefault": true,
+            "domains": [
+                "reddit.com"
+            ]
+        },
+        {
+            "name": "Spotify",
+			"displayName": "Spotify",
+            "enabledDefault": true,
+            "domains": [
+                "spotify.com"
+            ]
+        },
+        {
+            "name": "TikTok",
+			"displayName": "TikTok",
+            "enabledDefault": true,
+            "domains": [
+                "tiktok.com"
+            ]
+        },
+        {
+            "name": "Twitter / X",
+			"displayName": "Twitter / X",
+            "enabledDefault": true,
+            "domains": [
+                "t.co",
+                "twitter.com",
+                "x.com"
+            ]
+        }
+    ]
+}
