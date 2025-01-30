@@ -3,24 +3,20 @@
         {
             "name": "Amazon",
             "displayName": "Amazon",
+            "category": "E-Commerce",
             "enabledDefault": true,
-            "domains": [ "amazon.*" ]
-        },
-        {
-            "name": "BuzzFeed",
-            "displayName": "BuzzFeed",
-            "enabledDefault": false,
-            "domains": [ "buzzfeed.com" ]
+            "domains": ["amazon.*"]
         },
         {
             "name": "eBay",
             "displayName": "eBay",
-            "enabledDefault": false,
-            "domains": [ "ebay.*" ]
+            "category": "E-Commerce",
+            "domains": ["ebay.*"]
         },
         {
             "name": "Facebook",
             "displayName": "Facebook",
+            "category": "Social Media",
             "enabledDefault": true,
             "domains": [
                 "facebook.*",
@@ -36,8 +32,55 @@
             ]
         },
         {
+            "name": "Reddit",
+            "displayName": "Reddit",
+            "category": "Social Media",
+            "domains": ["reddit.com"]
+        },
+        {
+            "name": "TikTok",
+            "displayName": "TikTok",
+            "category": "Social Media",
+            "domains": ["tiktok.com"]
+        },
+        {
+            "name": "Twitter / X",
+            "displayName": "Twitter / X",
+            "category": "Social Media",
+            "domains": [
+                "t.co",
+                "twitter.com",
+                "x.com"
+            ]
+        },
+        {
+            "name": "LinkedIn",
+            "displayName": "LinkedIn",
+            "category": "Social Media",
+            "domains": ["linkedin.com"]
+        },
+        {
+            "name": "BuzzFeed",
+            "displayName": "BuzzFeed",
+            "category": "News",
+            "domains": ["buzzfeed.com"]
+        },
+        {
+            "name": "CNN",
+            "displayName": "CNN",
+            "category": "News",
+            "domains": ["cnn.com"]
+        },
+        {
+            "name": "New York Times",
+            "displayName": "New York Times",
+            "category": "News",
+            "domains": ["nytimes.com"]
+        },
+        {
             "name": "Google",
             "displayName": "Google",
+            "category": "Tech",
             "enabledDefault": true,
             "domains": [
                 "gmail.com",
@@ -46,38 +89,34 @@
             ]
         },
         {
-            "name": "LinkedIn",
-            "displayName": "LinkedIn",
-            "enabledDefault": true,
-            "domains": [ "linkedin.com" ]
+            "name": "Netflix",
+            "displayName": "Netflix",
+            "category": "Streaming Services",
+            "domains": ["netflix.com"]
         },
         {
-            "name": "Reddit",
-            "displayName": "Reddit",
-            "enabledDefault": true,
-            "domains": [ "reddit.com" ]
+            "name": "Hulu",
+            "displayName": "Hulu",
+            "category": "Streaming Services",
+            "domains": ["hulu.com"]
         },
         {
             "name": "Spotify",
             "displayName": "Spotify",
-            "enabledDefault": true,
-            "domains": [ "spotify.com" ]
+            "category": "Streaming Services",
+            "domains": ["spotify.com"]
         },
         {
-            "name": "TikTok",
-            "displayName": "TikTok",
-            "enabledDefault": true,
-            "domains": [ "tiktok.com" ]
+            "name": "Booking.com",
+            "displayName": "Booking.com",
+            "category": "Travel Agencies",
+            "domains": ["booking.com"]
         },
         {
-            "name": "Twitter / X",
-            "displayName": "Twitter / X",
-            "enabledDefault": true,
-            "domains": [ 
-                "t.co",
-                "twitter.com",
-                "x.com"
-            ]
+            "name": "Expedia",
+            "displayName": "Expedia",
+            "category": "Travel Agencies",
+            "domains": ["expedia.com"]
         }
     ]
 }

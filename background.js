@@ -63,8 +63,6 @@ function isMatchingDomain(url, pattern) {
   return baseDomain === pattern;
 }
 
-
-
 browser.webRequest.onBeforeRequest.addListener(
   async (details) => {
     let shouldHaveContainer = false;

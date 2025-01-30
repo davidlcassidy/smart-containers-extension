@@ -11,9 +11,11 @@ Features and functionality may be unstable or incomplete. Use at your own risk.
 - [x] Add enabledDefault container toggle to configs
 - [x] Update to use uniform default container color
 - [x] Add container display names to configs
-- [ ] Update dashboard UI
-- [ ] Bug: Container color selected state missing
+- [x] Add container categorization
+- [x] Bug: Container color selected state missing
+- [ ] Add clean/reset containers ability
 - [ ] Update config with missing domains
-- [ ] Update to support wildcard domains
+- [x] Update to support wildcard domains
+- [ ] Update dashboard UI
 - [ ] Add icons
-- [ ] Update README
+- [ ] Finalize README

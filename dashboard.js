@@ -7,111 +7,146 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const response = await fetch(browser.runtime.getURL("configs/containers.json"));
-    const json = await response.json();
-    CONTAINER_CONFIG = json;
-    generateSettingsForm();
+    CONTAINER_CONFIG = await response.json();
+    generateDashboard();
   } catch (error) {
     console.error("Error loading JSON:", error);
   }
 
-  function generateSettingsForm() {
-    const form = document.getElementById("dashboardForm");
+  function generateDashboard() {
+    const enabledContainerDiv = document.getElementById("enabledWebsites");
+    const categoryDiv = document.getElementById("categories");
+    
+    const categories = {};
 
+    // Loop through all containers to group them into categories and move enabled websites into separate div
     CONTAINER_CONFIG.containers.forEach((container) => {
-      const containerBox = document.createElement("div");
-      containerBox.className = "container-box";
-      
-	  const isContainerEnabled = localContainerSettings[container.name]?.enabled || container.enabledDefault
-      containerBox.dataset.enabled = isContainerEnabled ? "true" : "false";
-      containerBox.dataset.color = CONTAINER_COLOR_OPTIONS[0];
-      containerBox.style.backgroundColor = isContainerEnabled ? "#d4f8d4" : "#fde2e2";
+      const isContainerEnabled = localContainerSettings[container.name]?.enabled ?? container.enabledDefault;
 
-      // Toggle enable/disable state on click
-      containerBox.addEventListener("click", async (e) => {
-        if (!e.target.classList.contains("color-circle")) {
-          containerBox.dataset.enabled = containerBox.dataset.enabled === "true" ? "false" : "true";
-          containerBox.style.backgroundColor = containerBox.dataset.enabled === "true" ? "#d4f8d4" : "#fde2e2";
-          await saveSettings();
+      if (!categories[container.category]) {
+        categories[container.category] = [];
+      }
+
+      if (isContainerEnabled) {
+        const containerBox = createContainerBox(container, isContainerEnabled);
+        enabledContainerDiv.appendChild(containerBox);
+      } else {
+        categories[container.category].push(container);
+      }
+    });
+
+    // Create category buttons and containers
+    Object.keys(categories).forEach((category) => {
+      const categoryButton = document.createElement("button");
+      categoryButton.textContent = category;
+      categoryButton.classList.add("category-button");
+      categoryButton.addEventListener("click", () => toggleCategory(category));
+
+      const siteList = document.createElement("div");
+      siteList.classList.add("category-sites");
+      siteList.id = `category-${category.replace(/\s+/g, "-")}`;
+
+      categories[category].forEach((container) => {
+        const containerBox = createContainerBox(container, localContainerSettings[container.name]?.enabled || false);
+        siteList.appendChild(containerBox);
+      });
+
+      categoryDiv.appendChild(categoryButton);
+      categoryDiv.appendChild(siteList);
+    });
+  }
+
+  function createContainerBox(container, isEnabled) {
+    const containerBox = document.createElement("div");
+    containerBox.className = `container-box ${isEnabled ? "enabled" : "disabled"}`;
+    
+    containerBox.addEventListener("click", async () => {
+      const isNowEnabled = containerBox.classList.toggle("enabled");
+      containerBox.classList.toggle("disabled", !isNowEnabled);
+      await saveSettings(container.name, isNowEnabled);
+      updateUI(container, isNowEnabled);
+    });
+
+    const containerName = document.createElement("span");
+    containerName.textContent = container.displayName;
+    containerName.style.flex = "1";
+    containerBox.appendChild(containerName);
+
+    if (isEnabled) {
+      const colorCircle = document.createElement("div");
+      colorCircle.classList.add("color-circle");
+      colorCircle.style.backgroundColor = localContainerSettings[container.name]?.color || CONTAINER_COLOR_OPTIONS[0];
+
+      colorCircle.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        let currentColor = localContainerSettings[container.name]?.color || CONTAINER_COLOR_OPTIONS[0];
+        const currentIndex = CONTAINER_COLOR_OPTIONS.indexOf(currentColor);
+        const nextColor = CONTAINER_COLOR_OPTIONS[(currentIndex + 1) % CONTAINER_COLOR_OPTIONS.length];
+        
+        await saveSettings(container.name, isEnabled, nextColor);
+        updateUI(container, isEnabled);
+      });
+
+      containerBox.appendChild(colorCircle);
+    }
+
+    return containerBox;
+  }
+
+  function toggleCategory(category) {
+    const siteList = document.getElementById(`category-${category.replace(/\s+/g, "-")}`);
+    siteList.classList.toggle("category-expanded");
+  }
+
+  async function updateUI(inputContainer, isNowEnabled) {
+
+    // Rebuild the "Enabled Websites" section
+    const enabledContainerDiv = document.getElementById("enabledWebsites");
+    enabledContainerDiv.innerHTML = "";
+    CONTAINER_CONFIG.containers.forEach((container) => {
+      const isContainerEnabled = localContainerSettings[container.name]?.enabled ?? container.enabledDefault;
+      if (isContainerEnabled) {
+        const containerBox = createContainerBox(container, isContainerEnabled);
+        enabledContainerDiv.appendChild(containerBox);
+      }
+    });
+
+    // Rebuild the category section for the given category
+    const categoryDiv = document.getElementById("categories");
+    const siteList = document.getElementById(`category-${inputContainer.category.replace(/\s+/g, "-")}`);
+    if (siteList) {
+      siteList.innerHTML = "";
+      CONTAINER_CONFIG.containers.forEach((container) => {
+        const isContainerEnabled = localContainerSettings[container.name]?.enabled ?? container.enabledDefault;
+        if (container.category === inputContainer.category && !isContainerEnabled) {
+          const containerBox = createContainerBox(container, isContainerEnabled);
+          siteList.appendChild(containerBox);
         }
       });
-
-      // Container name
-      const containerName = document.createElement("span");
-      containerName.textContent = container.displayName;
-      containerName.style.flex = "1";
-      containerBox.appendChild(containerName);
-
-      // Color picker
-      const colorPicker = document.createElement("div");
-      colorPicker.className = "color-picker";
-      CONTAINER_COLOR_OPTIONS.forEach((color) => {
-        const colorCircle = document.createElement("div");
-        colorCircle.className = "color-circle";
-        colorCircle.style.backgroundColor = color;
-        colorCircle.dataset.color = color;
-
-        // Select color on click
-        colorCircle.addEventListener("click", async (e) => {
-          e.stopPropagation();
-          containerBox.dataset.color = color;
-          await saveSettings();
-        });
-
-        colorPicker.appendChild(colorCircle);
-      });
-      containerBox.appendChild(colorPicker);
-      form.appendChild(containerBox);
-    });
-
-    // Load saved settings from storage
-    browser.storage.local.get("containerSettings").then((data) => {
-      if (data.containerSettings) {
-        CONTAINER_CONFIG.containers.forEach((container) => {
-          const containerBox = document.querySelector(`.container-box:nth-child(${CONTAINER_CONFIG.containers.indexOf(container) + 1})`);
-          if (containerBox) {
-            const savedSettings = data.containerSettings[container.name];
-            containerBox.dataset.enabled = savedSettings?.enabled ? "true" : "false";
-            containerBox.dataset.color = savedSettings?.color || CONTAINER_COLOR_OPTIONS[0];
-            containerBox.style.backgroundColor = savedSettings?.enabled ? "#d4f8d4" : "#fde2e2";
-          }
-        });
-      }
-    });
-  }
-
-  async function saveSettings() {
-    const containerBoxes = document.querySelectorAll(".container-box");
-    let containersToUpdate = [];
-    let localSettingsChanged = false;
-
-    for (const [index, box] of containerBoxes.entries()) {
-      const name = CONTAINER_CONFIG.containers[index].name;
-      const enabled = box.dataset.enabled === "true";
-      const color = box.dataset.color || CONTAINER_COLOR_OPTIONS[0];
-      const savedSettings = localContainerSettings[name] || {};
-
-      const enabledStateChanged = savedSettings.enabled !== enabled;
-      const containerColorChanged = savedSettings.color !== color;
-
-      if (enabledStateChanged || containerColorChanged) {
-        localContainerSettings[name] = { enabled, color };
-        containersToUpdate.push({ name, enabled, color });
-        localSettingsChanged = true;
-      }
-    }
-
-    if (localSettingsChanged) {
-      await browser.storage.local.set({ containerSettings: localContainerSettings });
-    }
-
-    for (const { name, color } of containersToUpdate) {
-      const containers = await browser.contextualIdentities.query({});
-      const container = containers.find((c) => c.name === name);
-      const hasContainerColorBeenChanged = container && container.color !== color;
-      if (hasContainerColorBeenChanged) {
-        await browser.contextualIdentities.update(container.cookieStoreId, { color: color });
-      }
     }
   }
 
+  async function saveSettings(name, isEnabled, selectedColor) {
+    const container = CONTAINER_CONFIG.containers.find(c => c.displayName === name);
+    if (!container) return;
+
+    const savedSettings = localContainerSettings[name] || {};
+    savedSettings.enabled = isEnabled;
+
+    if (!isEnabled) {
+      savedSettings.color = CONTAINER_COLOR_OPTIONS[0];
+    } else if (selectedColor) {
+      savedSettings.color = selectedColor;
+    }
+
+    localContainerSettings[name] = savedSettings;
+
+    await browser.storage.local.set({ containerSettings: localContainerSettings });
+
+    const allContainers = await browser.contextualIdentities.query({});
+    const updatedContainer = allContainers.find(c => c.name === name);
+    if (updatedContainer && updatedContainer.cookieStoreId) {
+      await browser.contextualIdentities.update(updatedContainer.cookieStoreId, { color: savedSettings.color || CONTAINER_COLOR_OPTIONS[0] });
+    }
+  }
 });

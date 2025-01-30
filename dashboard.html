@@ -11,72 +11,71 @@
       padding: 20px;
       background-color: #f4f7fa;
       color: #333;
+      max-width: 350px;
     }
-
     h1 {
-      font-size: 26px;
-      margin-bottom: 10px;
+      font-size: 22px;
+      margin-bottom: 5px;
     }
-
-    p.description {
+    p.subtitle {
       font-size: 14px;
-      color: #777;
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      font-size: 18px;
-      margin-top: 20px;
+      color: #666;
       margin-bottom: 15px;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 10px;
     }
-
-    #dashboardForm {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
     .container-box {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 15px;
+      padding: 10px;
       border-radius: 6px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: background-color 0.3s ease;
-      width: 100%; /* Full-width boxes */
+      border-left: 5px solid;
+      position: relative;
+	  margin-bottom: 15px;
     }
-
-    .color-picker {
-      display: flex;
-      gap: 8px;
-    }
-
-    .color-circle {
-      width: 18px;
-      height: 18px;
+    .container-box .color-circle {
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      border: 1px solid #ccc;
       cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      transition: background-color 0.3s ease;
+      margin-left: 10px;
     }
-
-    .color-circle:hover {
-      transform: scale(1.1);
-      border-color: #000;
+    .enabled { 
+      background-color: #d4f8d4; 
+      border-left-color: #2a7a2a; 
     }
+    .disabled { 
+      background-color: #fde2e2; 
+      border-left-color: #aa2e2e; 
+    }
+    .category-list button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: left;
+      cursor: pointer;
+    }
+    .category-sites { display: none; }
+    .category-expanded { display: block; }
   </style>
 </head>
 <body>
   <h1>Smart Containers</h1>
-  <p class="description">
-    Manage your browsing containers with ease. Assign websites to specific containers and customize their appearance.
-  </p>
-  <h2>Website Containers</h2>
-  <form id="dashboardForm"></form>
+  <p class="subtitle">Select websites below to isolate them into containers for enhanced privacy and a safer browsing experience.</p>
+  
+  <h3>Enabled Websites</h3>
+  <div id="enabledWebsites"></div>
+  
+  <h3>Browse by Category</h3>
+  <div id="categories"></div>
+  
   <script src="dashboard.js"></script>
 </body>
 </html>
