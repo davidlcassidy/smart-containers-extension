@@ -13,9 +13,10 @@ Features and functionality may be unstable or incomplete. Use at your own risk.
 - [x] Add container display names to configs
 - [x] Add container categorization
 - [x] Bug: Container color selected state missing
-- [ ] Add clean/reset containers ability
+- [x] Add enable/disable all containers ability
+- [x] Add clean/reset containers ability
 - [ ] Update config with missing domains
 - [x] Update to support wildcard domains
-- [ ] Update dashboard UI
+- [ ] Finalize dashboard UI
 - [ ] Add icons
 - [ ] Finalize README

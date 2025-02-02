@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   let CONTAINER_CONFIG = {};
   const CONTAINER_COLOR_OPTIONS = ["red", "orange", "yellow", "green", "blue", "purple", "pink"];
-  
+
   let data = await browser.storage.local.get("containerSettings");
   let localContainerSettings = data.containerSettings || {};
 
@@ -12,118 +12,133 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     console.error("Error loading JSON:", error);
   }
-
+  
   function generateDashboard() {
-    const enabledContainerDiv = document.getElementById("enabledWebsites");
     const categoryDiv = document.getElementById("categories");
-    
+    categoryDiv.innerHTML = "";
     const categories = {};
 
-    // Loop through all containers to group them into categories and move enabled websites into separate div
+    // Group containers by category
     CONTAINER_CONFIG.containers.forEach((container) => {
-      const isContainerEnabled = localContainerSettings[container.name]?.enabled ?? container.enabledDefault;
-
       if (!categories[container.category]) {
         categories[container.category] = [];
       }
-
-      if (isContainerEnabled) {
-        const containerBox = createContainerBox(container, isContainerEnabled);
-        enabledContainerDiv.appendChild(containerBox);
-      } else {
-        categories[container.category].push(container);
-      }
+      categories[container.category].push(container);
     });
 
-    // Create category buttons and containers
-    Object.keys(categories).forEach((category) => {
+    Object.keys(categories).sort().forEach((category) => {
+      const categoryContainer = document.createElement("div");
+      categoryContainer.classList.add("category-container");
+
       const categoryButton = document.createElement("button");
-      categoryButton.textContent = category;
       categoryButton.classList.add("category-button");
-      categoryButton.addEventListener("click", () => toggleCategory(category));
+
+      const enabledCount = categories[category].filter(container => localContainerSettings[container.name]?.enabled ?? container.enabledDefault).length;
+      const disabledCount = categories[category].length - enabledCount;
+      categoryButton.innerHTML = `${category} 
+                                  <span class="category-counts">
+                                    <span class="enabled-count" style="color: green;">${enabledCount}</span>
+                                    /<span class="disabled-count" style="color: red;">${disabledCount}</span>
+                                  </span>
+                                  <span class="category-caret">^</span>`;
 
       const siteList = document.createElement("div");
       siteList.classList.add("category-sites");
       siteList.id = `category-${category.replace(/\s+/g, "-")}`;
+      siteList.style.display = "none";
 
       categories[category].forEach((container) => {
-        const containerBox = createContainerBox(container, localContainerSettings[container.name]?.enabled || false);
+        const isContainerEnabled = localContainerSettings[container.name]?.enabled ?? container.enabledDefault;
+        const containerBox = createContainerBox(container, isContainerEnabled);
         siteList.appendChild(containerBox);
       });
 
-      categoryDiv.appendChild(categoryButton);
-      categoryDiv.appendChild(siteList);
+      categoryButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const isExpanded = siteList.style.display === "block";
+        siteList.style.display = isExpanded ? "none" : "block";
+        categoryButton.classList.toggle("expanded", !isExpanded);
+        categoryButton.querySelector(".category-caret").classList.toggle("rotated", !isExpanded);
+      });
+
+      categoryContainer.appendChild(categoryButton);
+      categoryContainer.appendChild(siteList);
+      categoryDiv.appendChild(categoryContainer);
+    });
+  }
+
+  function updateCategoryCounts() {
+    const categories = document.querySelectorAll(".category-container");
+
+    categories.forEach(category => {
+      const categoryButton = category.querySelector(".category-button");
+      const categoryName = categoryButton.innerHTML.split('<')[0].trim();
+
+      const containers = CONTAINER_CONFIG.containers.filter(container => container.category === categoryName);
+      const enabledCount = containers.filter(container => localContainerSettings[container.name]?.enabled ?? container.enabledDefault).length;
+      const disabledCount = containers.length - enabledCount;
+
+      const countsSpan = categoryButton.querySelector(".category-counts");
+      countsSpan.innerHTML = `
+        <span class="enabled-count" style="color: green;">${enabledCount}</span>
+        /<span class="disabled-count" style="color: red;">${disabledCount}</span>
+      `;
     });
   }
 
   function createContainerBox(container, isEnabled) {
     const containerBox = document.createElement("div");
     containerBox.className = `container-box ${isEnabled ? "enabled" : "disabled"}`;
-    
-    containerBox.addEventListener("click", async () => {
+    containerBox.setAttribute("data-name", container.name);
+
+    containerBox.addEventListener("click", async (event) => {
       const isNowEnabled = containerBox.classList.toggle("enabled");
       containerBox.classList.toggle("disabled", !isNowEnabled);
       await saveSettings(container.name, isNowEnabled);
-      updateUI(container, isNowEnabled);
+
+      const colorCircle = containerBox.querySelector(".color-circle");
+      if (colorCircle) {
+        if (isNowEnabled) {
+          colorCircle.classList.remove("hidden");
+        } else {
+          colorCircle.classList.add("hidden");
+        }
+      }
+
+      updateCategoryCounts();
     });
 
     const containerName = document.createElement("span");
     containerName.textContent = container.displayName;
-    containerName.style.flex = "1";
     containerBox.appendChild(containerName);
 
-    if (isEnabled) {
-      const colorCircle = document.createElement("div");
-      colorCircle.classList.add("color-circle");
-      colorCircle.style.backgroundColor = localContainerSettings[container.name]?.color || CONTAINER_COLOR_OPTIONS[0];
+    let currentColor = localContainerSettings[container.name]?.color || CONTAINER_COLOR_OPTIONS[0];
 
+    const colorCircle = document.createElement("div");
+    colorCircle.classList.add("color-circle");
+    colorCircle.style.backgroundColor = currentColor;
+
+    if (!isEnabled) {
+      colorCircle.classList.add("hidden");
+    }
+
+    if (isEnabled) {
       colorCircle.addEventListener("click", async (e) => {
         e.stopPropagation();
-        let currentColor = localContainerSettings[container.name]?.color || CONTAINER_COLOR_OPTIONS[0];
-        const currentIndex = CONTAINER_COLOR_OPTIONS.indexOf(currentColor);
+        let currentIndex = CONTAINER_COLOR_OPTIONS.indexOf(currentColor);
         const nextColor = CONTAINER_COLOR_OPTIONS[(currentIndex + 1) % CONTAINER_COLOR_OPTIONS.length];
-        
-        await saveSettings(container.name, isEnabled, nextColor);
-        updateUI(container, isEnabled);
-      });
 
-      containerBox.appendChild(colorCircle);
+        colorCircle.style.backgroundColor = nextColor;
+
+        await saveSettings(container.name, isEnabled, nextColor);
+
+        currentColor = nextColor;
+      });
     }
+
+    containerBox.appendChild(colorCircle);
 
     return containerBox;
-  }
-
-  function toggleCategory(category) {
-    const siteList = document.getElementById(`category-${category.replace(/\s+/g, "-")}`);
-    siteList.classList.toggle("category-expanded");
-  }
-
-  async function updateUI(inputContainer, isNowEnabled) {
-
-    // Rebuild the "Enabled Websites" section
-    const enabledContainerDiv = document.getElementById("enabledWebsites");
-    enabledContainerDiv.innerHTML = "";
-    CONTAINER_CONFIG.containers.forEach((container) => {
-      const isContainerEnabled = localContainerSettings[container.name]?.enabled ?? container.enabledDefault;
-      if (isContainerEnabled) {
-        const containerBox = createContainerBox(container, isContainerEnabled);
-        enabledContainerDiv.appendChild(containerBox);
-      }
-    });
-
-    // Rebuild the category section for the given category
-    const categoryDiv = document.getElementById("categories");
-    const siteList = document.getElementById(`category-${inputContainer.category.replace(/\s+/g, "-")}`);
-    if (siteList) {
-      siteList.innerHTML = "";
-      CONTAINER_CONFIG.containers.forEach((container) => {
-        const isContainerEnabled = localContainerSettings[container.name]?.enabled ?? container.enabledDefault;
-        if (container.category === inputContainer.category && !isContainerEnabled) {
-          const containerBox = createContainerBox(container, isContainerEnabled);
-          siteList.appendChild(containerBox);
-        }
-      });
-    }
   }
 
   async function saveSettings(name, isEnabled, selectedColor) {
@@ -140,7 +155,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     localContainerSettings[name] = savedSettings;
-
     await browser.storage.local.set({ containerSettings: localContainerSettings });
 
     const allContainers = await browser.contextualIdentities.query({});
@@ -148,5 +162,53 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (updatedContainer && updatedContainer.cookieStoreId) {
       await browser.contextualIdentities.update(updatedContainer.cookieStoreId, { color: savedSettings.color || CONTAINER_COLOR_OPTIONS[0] });
     }
+
+    updateCategoryCounts();
   }
+
+  document.getElementById("enableAll").addEventListener("click", async () => {
+    CONTAINER_CONFIG.containers.forEach(async (container) => {
+      await saveSettings(container.name, true);
+
+      const containerBox = document.querySelector(`.container-box[data-name="${container.name}"]`);
+      if (containerBox) {
+        containerBox.classList.remove("disabled");
+        containerBox.classList.add("enabled");
+        const colorCircle = containerBox.querySelector(".color-circle");
+        if (colorCircle) {
+          colorCircle.classList.remove("hidden");
+        }
+      }
+    });
+    updateCategoryCounts();
+  });
+
+  document.getElementById("disableAll").addEventListener("click", async () => {
+    CONTAINER_CONFIG.containers.forEach(async (container) => {
+      await saveSettings(container.name, false);
+
+      const containerBox = document.querySelector(`.container-box[data-name="${container.name}"]`);
+      if (containerBox) {
+        containerBox.classList.remove("enabled");
+        containerBox.classList.add("disabled");
+        const colorCircle = containerBox.querySelector(".color-circle");
+        if (colorCircle) {
+          colorCircle.classList.add("hidden");
+        }
+      }
+    });
+    updateCategoryCounts();
+  });
+
+  document.getElementById("purgeAll").addEventListener("click", async () => {
+    for (let container of CONTAINER_CONFIG.containers) {
+      const allContainers = await browser.contextualIdentities.query({});
+      const containerToDelete = allContainers.find(c => c.name === container.name);
+      if (containerToDelete && containerToDelete.cookieStoreId) {
+        await browser.contextualIdentities.remove(containerToDelete.cookieStoreId);
+      }
+    }
+
+    alert("All containers have been permanently deleted.");
+  });
 });

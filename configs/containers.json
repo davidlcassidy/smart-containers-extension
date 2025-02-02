@@ -35,7 +35,12 @@
             "name": "Reddit",
             "displayName": "Reddit",
             "category": "Social Media",
-            "domains": ["reddit.com"]
+            "domains": [
+                "redd.it",
+                "reddit.com",
+                "redditblog.com",
+                "redditgifts.com"
+            ]
         },
         {
             "name": "TikTok",
@@ -57,13 +62,17 @@
             "name": "LinkedIn",
             "displayName": "LinkedIn",
             "category": "Social Media",
-            "domains": ["linkedin.com"]
+            "domains": ["linkedin.*"]
         },
         {
             "name": "BuzzFeed",
             "displayName": "BuzzFeed",
             "category": "News",
-            "domains": ["buzzfeed.com"]
+            "domains": [
+                "buzzfeed.*",
+                "buzzfeed.bio",
+                "buzzfeednews.com"
+            ]
         },
         {
             "name": "CNN",
@@ -85,6 +94,7 @@
             "domains": [
                 "gmail.com",
                 "google.*",
+                "youtu.be",
                 "youtube.com"
             ]
         },
@@ -92,7 +102,12 @@
             "name": "Netflix",
             "displayName": "Netflix",
             "category": "Streaming Services",
-            "domains": ["netflix.com"]
+            "domains": [
+                "netflix.com",
+                "netflix.net",
+                "netflixstudios.com",
+                "nflxext.com"
+            ]
         },
         {
             "name": "Hulu",

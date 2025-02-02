@@ -22,6 +22,43 @@
       color: #666;
       margin-bottom: 15px;
     }
+    
+    .category-button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .category-counts {
+      display: flex;
+      justify-content: flex-start;
+      gap: 5px;
+    }
+
+    .category-caret {
+      display: inline-block;
+      transition: transform 0.3s;
+      margin-left: 10px;
+    }
+
+    .enabled-count {
+      color: green;
+    }
+
+    .disabled-count {
+      color: red;
+    }
+
+    .category-caret {
+      display: inline-block;
+      transition: transform 0.3s;
+    }
+
+    .category-caret.rotated {
+      transform: rotate(180deg);
+    }
+    
     .container-box {
       display: flex;
       align-items: center;
@@ -33,8 +70,9 @@
       transition: background-color 0.3s ease;
       border-left: 5px solid;
       position: relative;
-	  margin-bottom: 15px;
+      margin-bottom: 10px;
     }
+
     .container-box .color-circle {
       width: 20px;
       height: 20px;
@@ -43,6 +81,7 @@
       transition: background-color 0.3s ease;
       margin-left: 10px;
     }
+
     .enabled { 
       background-color: #d4f8d4; 
       border-left-color: #2a7a2a; 
@@ -51,31 +90,113 @@
       background-color: #fde2e2; 
       border-left-color: #aa2e2e; 
     }
-    .category-list button {
-      display: block;
+
+    .category-container {
+      margin-bottom: 10px;
+    }
+
+    .category-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       width: 100%;
       padding: 10px;
-      margin: 5px 0;
       background: #fff;
       border: 1px solid #ccc;
       border-radius: 4px;
-      text-align: left;
       cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
     }
-    .category-sites { display: none; }
-    .category-expanded { display: block; }
+    .category-button:hover {
+      background: #f0f0f0;
+    }
+
+    .category-caret {
+      transition: transform 0.3s ease;
+    }
+
+    .category-expanded .category-caret {
+      transform: rotate(180deg);
+    }
+
+    .category-sites {
+      display: none;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+
+    .footer-buttons {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .footer-button-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .footer-button-container button, .footer-buttons button {
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      height: 50px;
+      transition: background-color 0.3s ease;
+    }
+
+    .footer-button-container .enable-all,
+    .footer-button-container .disable-all {
+      flex: 1;
+      margin-right: 5px;
+    }
+
+    .enable-all {
+      background: #28a745;
+      color: white;
+    }
+    .disable-all {
+      background: #dc3545;
+      color: white;
+    }
+
+    .purge-all {
+      background: #6c757d;
+      color: white;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .footer-button-container button:hover, .footer-buttons button:hover {
+      opacity: 0.8;
+    }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
   <h1>Smart Containers</h1>
   <p class="subtitle">Select websites below to isolate them into containers for enhanced privacy and a safer browsing experience.</p>
-  
-  <h3>Enabled Websites</h3>
-  <div id="enabledWebsites"></div>
-  
-  <h3>Browse by Category</h3>
+
   <div id="categories"></div>
-  
+
+  <div class="footer-buttons">
+    <div class="footer-button-container">
+      <button class="enable-all" id="enableAll">Enable All</button>
+      <button class="disable-all" id="disableAll">Disable All</button>
+    </div>
+    <button class="purge-all" id="purgeAll">Purge All Containers</button>
+  </div>
+
   <script src="dashboard.js"></script>
 </body>
 </html>
