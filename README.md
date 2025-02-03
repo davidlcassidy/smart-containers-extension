@@ -16,6 +16,7 @@ Features and functionality may be unstable or incomplete. Use at your own risk.
 - [x] Add enable/disable all containers ability
 - [x] Add clean/reset containers ability
 - [ ] Eliminate unnecessary calls to local storage
+- [ ] Add confirmation to purge operation
 - [ ] Update config with missing domains
 - [x] Update to support wildcard domains
 - [ ] Finalize dashboard UI
