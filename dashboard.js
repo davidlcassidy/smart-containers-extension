@@ -8,10 +8,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await fetch(browser.runtime.getURL("configs/containers.json"));
     CONTAINER_CONFIG = await response.json();
-    if (!CONTAINER_CONFIG.containers) {
-      console.error("Error: containers.json is missing 'containers' key.");
-      return;
-    }
     generateDashboard();
   } catch (error) {
     console.error("Error loading JSON:", error);
@@ -23,12 +19,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const categories = {};
 
     // Group containers by category
-    CONTAINER_CONFIG.containers.forEach((container) => {
+    CONTAINER_CONFIG.forEach((container) => {
       if (!categories[container.category]) {
         categories[container.category] = [];
       }
       categories[container.category].push(container);
     });
+	console.log(JSON.stringify(CONTAINER_CONFIG, null, 2));
 
     Object.keys(categories).sort().forEach((category) => {
       const categoryContainer = document.createElement("div");
@@ -37,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const categoryButton = document.createElement("button");
       categoryButton.classList.add("category-button");
 	  
-	  const containerList = document.createElement("div");
+      const containerList = document.createElement("div");
       containerList.classList.add("category-sites");
       containerList.id = `category-${category.replace(/\s+/g, "-")}`;
       containerList.style.display = "none";
@@ -52,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         </span>
         <span class="category-caret">^</span>
       `; 
-	  categoryButton.addEventListener("click", (event) => handleCategoryClick(event, categoryButton, containerList, ));
+      categoryButton.addEventListener("click", (event) => handleCategoryClick(event, categoryButton, containerList, ));
 
       categories[category].sort((a, b) => a.displayName.localeCompare(b.displayName)).forEach((container) => {
         const containerCard = document.createElement("div");
@@ -127,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const categoryButton = category.querySelector(".category-button");
       const categoryName = categoryButton.querySelector(".category-name")?.textContent.trim();
 
-      const containers = CONTAINER_CONFIG.containers.filter(container => container.category === categoryName);
+      const containers = CONTAINER_CONFIG.filter(container => container.category === categoryName);
       const enabledCount = containers.filter(container => localContainerSettings[container.name]?.enabled ?? container.enabledDefault).length;
       const disabledCount = containers.length - enabledCount;
 
@@ -139,19 +136,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-
   document.getElementById("enableAll").addEventListener("click", async () => {
-    await Promise.all(CONTAINER_CONFIG.containers.map(container => saveSettingsAndUpdateContainer(container.name, true)));
+    await Promise.all(CONTAINER_CONFIG.map(container => saveSettingsAndUpdateContainer(container.name, true)));
     updateAllContainersUI(true);
   });
 
   document.getElementById("disableAll").addEventListener("click", async () => {
-    await Promise.all(CONTAINER_CONFIG.containers.map(container => saveSettingsAndUpdateContainer(container.name, false)));
+    await Promise.all(CONTAINER_CONFIG.map(container => saveSettingsAndUpdateContainer(container.name, false)));
     updateAllContainersUI(false);
   });
 
   function updateAllContainersUI(isEnabled) {
-    CONTAINER_CONFIG.containers.forEach(container => {
+    CONTAINER_CONFIG.forEach(container => {
       const containerCard = document.querySelector(`.container-card[data-name="${container.name}"]`);
       if (containerCard) {
         containerCard.classList.toggle("enabled", isEnabled);
@@ -162,7 +158,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   document.getElementById("purgeAll").addEventListener("click", async () => {
-    for (let container of CONTAINER_CONFIG.containers) {
+    for (let container of CONTAINER_CONFIG) {
       const allContainers = await browser.contextualIdentities.query({});
       const containerToDelete = allContainers.find(c => c.name === container.name);
       if (containerToDelete && containerToDelete.cookieStoreId) {
@@ -177,39 +173,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (isEnabled) {
 
       // Update local storage
-      savedSettings.enabled = true;
-      savedSettings.color = selectedColor;
-      localContainerSettings[name] = savedSettings;
-      await browser.storage.local.set({
-        containerSettings: localContainerSettings
-      });
+	  localContainerSettings[name] = { enabled: true, color: selectedColor };
 
       // Update browser containers
       const allContainers = await browser.contextualIdentities.query({});
       const updatedContainer = allContainers.find(c => c.name === name);
       if (updatedContainer && updatedContainer.cookieStoreId) {
-        await browser.contextualIdentities.update(updatedContainer.cookieStoreId, {
-          color: savedSettings.color || CONTAINER_COLOR_OPTIONS[0]
-        });
+        await browser.contextualIdentities.update(updatedContainer.cookieStoreId, { color: selectedColor });
       }
 
-    } else if (CONTAINER_CONFIG.containers.find(c => c.name === name).enabledDefault) {
+    } else if (CONTAINER_CONFIG.find(c => c.name === name).enabledDefault) {
 
       // Update local storage
       // (Needs to be set to override enabledDefault)
-      savedSettings.enabled = false;
-      savedSettings.color = undefined;
-      localContainerSettings[name] = savedSettings;
-      await browser.storage.local.set({
-        containerSettings: localContainerSettings
-      });
+      localContainerSettings[name] = { enabled: false, color: undefined };
 
     } else {
       delete localContainerSettings[name];
-      await browser.storage.local.set({
-        containerSettings: localContainerSettings
-      });
     }
+	
+	await browser.storage.local.set({ containerSettings: localContainerSettings });
 
     updateCategoryCounts();
   }

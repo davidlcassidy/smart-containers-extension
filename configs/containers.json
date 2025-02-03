@@ -1,137 +1,785 @@
-{
-    "containers": [
-        {
-            "name": "Amazon",
-            "displayName": "Amazon",
-            "category": "E-Commerce",
-            "enabledDefault": true,
-            "domains": ["amazon.*"]
-        },
-        {
-            "name": "eBay",
-            "displayName": "eBay",
-            "category": "E-Commerce",
-            "domains": ["ebay.*"]
-        },
-        {
-            "name": "Facebook",
-            "displayName": "Facebook",
-            "category": "Social Media",
-            "enabledDefault": true,
-            "domains": [
-                "facebook.*",
-                "facebookbrand.com",
-                "facebookstudio.com",
-                "fb.com",
-                "fb.me",
-                "internet.org",
-                "messenger.com",
-                "meta.com",
-                "oculus.com",
-                "workplace.com"
-            ]
-        },
-        {
-            "name": "Reddit",
-            "displayName": "Reddit",
-            "category": "Social Media",
-            "domains": [
-                "redd.it",
-                "reddit.com",
-                "redditblog.com",
-                "redditgifts.com"
-            ]
-        },
-        {
-            "name": "TikTok",
-            "displayName": "TikTok",
-            "category": "Social Media",
-            "domains": ["tiktok.com"]
-        },
-        {
-            "name": "Twitter / X",
-            "displayName": "Twitter / X",
-            "category": "Social Media",
-            "domains": [
-                "t.co",
-                "twitter.com",
-                "x.com"
-            ]
-        },
-        {
-            "name": "LinkedIn",
-            "displayName": "LinkedIn",
-            "category": "Social Media",
-            "domains": ["linkedin.*"]
-        },
-        {
-            "name": "BuzzFeed",
-            "displayName": "BuzzFeed",
-            "category": "News",
-            "domains": [
-                "buzzfeed.*",
-                "buzzfeed.bio",
-                "buzzfeednews.com"
-            ]
-        },
-        {
-            "name": "CNN",
-            "displayName": "CNN",
-            "category": "News",
-            "domains": ["cnn.com"]
-        },
-        {
-            "name": "New York Times",
-            "displayName": "New York Times",
-            "category": "News",
-            "domains": ["nytimes.com"]
-        },
-        {
-            "name": "Google",
-            "displayName": "Google",
-            "category": "Tech",
-            "enabledDefault": true,
-            "domains": [
-                "gmail.com",
-                "google.*",
-                "youtu.be",
-                "youtube.com"
-            ]
-        },
-        {
-            "name": "Netflix",
-            "displayName": "Netflix",
-            "category": "Streaming Services",
-            "domains": [
-                "netflix.com",
-                "netflix.net",
-                "netflixstudios.com",
-                "nflxext.com"
-            ]
-        },
-        {
-            "name": "Hulu",
-            "displayName": "Hulu",
-            "category": "Streaming Services",
-            "domains": ["hulu.com"]
-        },
-        {
-            "name": "Spotify",
-            "displayName": "Spotify",
-            "category": "Streaming Services",
-            "domains": ["spotify.com"]
-        },
-        {
-            "name": "Booking.com",
-            "displayName": "Booking.com",
-            "category": "Travel Agencies",
-            "domains": ["booking.com"]
-        },
-        {
-            "name": "Expedia",
-            "displayName": "Expedia",
-            "category": "Travel Agencies",
-            "domains": ["expedia.com"]
-        }
-    ]
-}
+[
+	{
+		"name": "ANA Holdings",
+		"displayName": "ANA Holdings",
+		"category": "Travel: Airlines",
+		"domains": [
+			"ana.co.jp",
+			"anawings.co.jp",
+			"flyairjapan.com",
+			"flypeach.com"
+		]
+	},
+	{
+		"name": "Accor Hotels",
+		"displayName": "Accor Hotels",
+		"category": "Travel: Hotels",
+		"domains": [
+			"accorhotels.com",
+			"sofitel.com",
+			"novotel.com",
+			"mercure.com",
+			"ibis.com",
+			"pullmanhotels.com",
+			"m-gallery.com",
+			"f1hotels.com",
+			"thelines.com"
+		]
+	},
+	{
+		"name": "Air France-KLM",
+		"displayName": "Air France-KLM",
+		"category": "Travel: Airlines",
+		"domains": [
+			"airfrance.com",
+			"klm.com",
+			"transavia.com",
+			"hop.com"
+		]
+	},
+	{
+		"name": "Airbnb",
+		"displayName": "Airbnb",
+		"category": "Travel: Hotels",
+		"domains": [
+			"airbnb.com"
+		]
+	},
+	{
+		"name": "Alaska Air",
+		"displayName": "Alaska Air",
+		"category": "Travel: Airlines",
+		"domains": [
+			"alaskaair.com",
+			"virginamerica.com"
+		]
+	},
+	{
+		"name": "AliExpress",
+		"displayName": "AliExpress",
+		"category": "E-Commerce",
+		"domains": [
+			"aliexpress.com"
+		]
+	},
+	{
+		"name": "Amazon",
+		"displayName": "Amazon",
+		"category": "E-Commerce",
+		"enabledDefault": true,
+		"domains": [
+			"amazon.*",
+			"imdb.com",
+			"ring.com",
+			"twitch.tv",
+			"wholefoodsmarket.com",
+			"zappos.com"
+		]
+	},
+	{
+		"name": "American Airlines",
+		"displayName": "American Airlines",
+		"category": "Travel: Airlines",
+		"domains": [
+			"aa.com",
+			"americanairlines.com",
+			"usairways.com",
+			"american-eagle.com"
+		]
+	},
+	{
+		"name": "Apple",
+		"displayName": "Apple",
+		"category": "Media",
+		"domains": [
+			"apple.com"
+		]
+	},
+	{
+		"name": "Avis",
+		"displayName": "Avis Budget Group",
+		"category": "Travel: Car Rentals",
+		"domains": [
+			"avis.com",
+			"budget.com",
+			"paylesscarhire.com",
+			"zipcar.com"
+		]
+	},
+	{
+		"name": "BBC News",
+		"displayName": "BBC News",
+		"category": "News",
+		"domains": [
+			"bbc.com",
+			"bbc.co.uk"
+		]
+	},
+	{
+		"name": "Best Western",
+		"displayName": "Best Western",
+		"category": "Travel: Hotels",
+		"domains": [
+			"bestwestern.com",
+			"bestwesternplus.com",
+			"bestwesternpremier.com",
+			"bestwesternrewards.com",
+			"glowbybestwestern.com"
+		]
+	},
+	{
+		"name": "Bloomberg",
+		"displayName": "Bloomberg",
+		"category": "News",
+		"domains": [
+			"bloomberg.com"
+		]
+	},
+	{
+		"name": "Booking.com",
+		"displayName": "Booking.com Group",
+		"category": "Travel: Travel Agencies",
+		"domains": [
+			"booking.com",
+			"priceline.com",
+			"agoda.com",
+			"kayak.com",
+			"cheapflights.com",
+			"rentalcars.com",
+			"momondo.com",
+			"opentable.com"
+		]
+	},
+	{
+		"name": "Cathay Pacific",
+		"displayName": "Cathay Pacific",
+		"category": "Travel: Airlines",
+		"domains": [
+			"cathaypacific.com",
+			"cathaydragon.com"
+		]
+	},
+	{
+		"name": "China Eastern Airlines",
+		"displayName": "China Eastern Airlines",
+		"category": "Travel: Airlines",
+		"domains": [
+			"ceair.com",
+			"chinaeasternairlines.com"
+		]
+	},
+	{
+		"name": "China Southern Airlines",
+		"displayName": "China Southern Airlines",
+		"category": "Travel: Airlines",
+		"domains": [
+			"csair.com",
+			"cs.com.cn"
+		]
+	},
+	{
+		"name": "Choice Hotels",
+		"displayName": "Choice Hotels",
+		"category": "Travel: Hotels",
+		"domains": [
+			"choicehotels.com",
+			"comfortinn.com",
+			"qualityinn.com",
+			"clarionhotel.com",
+			"econolodge.com",
+			"sleepinn.com",
+			"rodewayinn.com",
+			"mainstaysuites.com",
+			"suburbanhotels.com",
+			"woodspring.com"
+		]
+	},
+	{
+		"name": "Delta",
+		"displayName": "Delta",
+		"category": "Travel: Airlines",
+		"domains": [
+			"delta.com",
+			"deltaairlines.com"
+		]
+	},
+	{
+		"name": "Disney",
+		"displayName": "Disney",
+		"category": "Media",
+		"domains": [
+			"abc.com",
+			"disney.com",
+			"disneyplus.com",
+			"espn.com",
+			"espnplus.com",
+			"hulu.com",
+			"lucasfilm.com",
+			"marvel.com",
+			"nationalgeographic.com",
+			"pixar.com",
+			"thewaltdisneycompany.com"
+		]
+	},
+	{
+		"name": "Emirates",
+		"displayName": "Emirates",
+		"category": "Travel: Airlines",
+		"domains": [
+			"emirates.com"
+		]
+	},
+	{
+		"name": "Enterprise",
+		"displayName": "Enterprise Holdings",
+		"category": "Travel: Car Rentals",
+		"domains": [
+			"enterprise.com",
+			"nationalcar.com",
+			"alamo.com"
+		]
+	},
+	{
+		"name": "Etsy",
+		"displayName": "Etsy",
+		"category": "E-Commerce",
+		"domains": [
+			"etsy.com"
+		]
+	},
+	{
+		"name": "Europcar",
+		"displayName": "Europcar",
+		"category": "Travel: Car Rentals",
+		"domains": [
+			"europcar.com",
+			"goldcar.es",
+			"interrent.com",
+			"ubeeqo.com"
+		]
+	},
+	{
+		"name": "Expedia",
+		"displayName": "Expedia Group",
+		"category": "Travel: Travel Agencies",
+		"domains": [
+			"expedia.com",
+			"hotels.com",
+			"vrbo.com",
+			"travelocity.com",
+			"hotwire.com",
+			"orbitz.com",
+			"ebookers.com",
+			"cheaptickets.com",
+			"carrentals.com",
+			"expediacruises.com",
+			"wotif.com",
+			"trivago.com"
+		]
+	},
+	{
+		"name": "Facebook",
+		"displayName": "Facebook",
+		"category": "Social Media",
+		"enabledDefault": true,
+		"domains": [
+			"facebook.*",
+			"facebookbrand.com",
+			"facebookstudio.com",
+			"fb.com",
+			"fb.me",
+			"instagram.com",
+			"internet.org",
+			"messenger.com",
+			"meta.com",
+			"oculus.com",
+			"workplace.com",
+			"whatsapp.com"
+		]
+	},
+	{
+		"name": "Financial Times",
+		"displayName": "Financial Times",
+		"category": "News",
+		"domains": [
+			"ft.com"
+		]
+	},
+	{
+		"name": "Forbes",
+		"displayName": "Forbes",
+		"category": "News",
+		"domains": [
+			"forbes.com"
+		]
+	},
+	{
+		"name": "Google",
+		"displayName": "Google",
+		"category": "Tech",
+		"enabledDefault": true,
+		"domains": [
+			"android.com",
+			"fitbit.com",
+			"gmail.com",
+			"google.*",
+			"googleusercontent.com",
+			"nest.com",
+			"waymo.com",
+			"waze.com",
+			"youtu.be",
+			"youtube.com"
+		]
+	},
+	{
+		"name": "Hertz",
+		"displayName": "Hertz",
+		"category": "Travel: Car Rentals",
+		"domains": [
+			"hertz.com",
+			"dollar.com",
+			"thrifty.com"
+		]
+	},
+	{
+		"name": "Hilton",
+		"displayName": "Hilton",
+		"category": "Travel: Hotels",
+		"domains": [
+			"hilton.com",
+			"conradhotels.com",
+			"doubletree.com",
+			"embassysuites.com",
+			"hamptoninn.com",
+			"gardeninn.com",
+			"homewood-suites.com",
+			"home2suites.com",
+			"curiohotels.com",
+			"waldorfastoria.com",
+			"trubyhilton.com"
+		]
+	},
+	{
+		"name": "HuffPost",
+		"displayName": "HuffPost",
+		"category": "News",
+		"domains": [
+			"huffpost.com"
+		]
+	},
+	{
+		"name": "Hyatt",
+		"displayName": "Hyatt",
+		"category": "Travel: Hotels",
+		"domains": [
+			"hyatt.com",
+			"hyattregency.com",
+			"hyattcentric.com",
+			"grandhyatt.com",
+			"hyattplace.com",
+			"hyatthouse.com",
+			"parkhyatt.com",
+			"thelifehotel.com"
+		]
+	},
+	{
+		"name": "IAG",
+		"displayName": "International Airlines Group",
+		"category": "Travel: Airlines",
+		"domains": [
+			"iata.org",
+			"iberia.com",
+			"britishairways.com",
+			"vueling.com",
+			"level.com"
+		]
+	},
+	{
+		"name": "IHG",
+		"displayName": "IHG",
+		"category": "Travel: Hotels",
+		"domains": [
+			"ihg.com",
+			"intercontinental.com",
+			"holidayinn.com",
+			"holidayinnexpress.com",
+			"crowneplaza.com",
+			"hotelindigo.com",
+			"staybridge.com",
+			"candlewoodsuites.com",
+			"evokegroup.com"
+		]
+	},
+	{
+		"name": "Jet Airways",
+		"displayName": "Jet Airways",
+		"category": "Travel: Airlines",
+		"domains": [
+			"jetairways.com"
+		]
+	},
+	{
+		"name": "LATAM",
+		"displayName": "LATAM Group",
+		"category": "Travel: Airlines",
+		"domains": [
+			"latam.com",
+			"lan.com",
+			"tam.com.br"
+		]
+	},
+	{
+		"name": "Louvre Hotels",
+		"displayName": "Louvre Hotels",
+		"category": "Travel: Hotels",
+		"domains": [
+			"louvre-hotels.com",
+			"goldentulip.com",
+			"campanile.com",
+			"premierclasse.com",
+			"kyriad.com",
+			"campsited.com"
+		]
+	},
+	{
+		"name": "Lufthansa",
+		"displayName": "Lufthansa",
+		"category": "Travel: Airlines",
+		"domains": [
+			"lufthansa.com",
+			"austrian.com",
+			"swiss.com",
+			"brusselsairlines.com",
+			"eurowings.com"
+		]
+	},
+	{
+		"name": "Marriott",
+		"displayName": "Marriott",
+		"category": "Travel: Hotels",
+		"domains": [
+			"marriott.com",
+			"ritz-carlton.com",
+			"jwmarriott.com",
+			"courtyard.com",
+			"fairfieldinn.com",
+			"springhilluites.com",
+			"residenceinn.com",
+			"towneplace-suites.com",
+			"autographhotels.com",
+			"moxy-hotels.com",
+			"proteahotels.com"
+		]
+	},
+	{
+		"name": "Microsoft",
+		"displayName": "Microsoft",
+		"category": "Tech",
+		"domains": [
+			"azure.com",
+			"bing.com",
+			"github.com",
+			"hotmail.com",
+			"linkedin.com",
+			"live.com",
+			"microsoft.com",
+			"microsoftonline.com",
+			"microsoftstore.com",
+			"msft.com",
+			"msftconnecttest.com",
+			"msn.com",
+			"nokia.com",
+			"office.com",
+			"onedrive.com",
+			"outlook.com",
+			"skype.com",
+			"visualstudio.com",
+			"windows.com",
+			"xbox.com"
+		]
+	},
+	{
+		"name": "NBC",
+		"displayName": "NBC Universal / Comcast",
+		"category": "Media",
+		"domains": [
+			"dreamworks.com",
+			"msnbc.com",
+			"nbc.com",
+			"peacocktv.com",
+			"telemundo.com",
+			"universalpictures.com"
+		]
+	},
+	{
+		"name": "Netflix",
+		"displayName": "Netflix",
+		"category": "Media",
+		"domains": [
+			"netflix.com",
+			"netflix.net",
+			"netflixstudios.com",
+			"nflxext.com"
+		]
+	},
+	{
+		"name": "New York Times",
+		"displayName": "New York Times",
+		"category": "News",
+		"domains": [
+			"nytimes.com",
+			"nytco.com",
+			"nytlicensing.com",
+			"nytimesinternational.com"
+		]
+	},
+	{
+		"name": "News Corporation",
+		"displayName": "News Corporation (Fox News)",
+		"category": "News",
+		"domains": [
+			"20thcenturystudios.com",
+			"fox.com",
+			"foxnews.com",
+			"heraldsun.com.au",
+			"msnbc.com",
+			"thesun.co.uk",
+			"theaustralian.com.au",
+			"thetimes.co.uk"
+		]
+	},
+	{
+		"name": "Paramount",
+		"displayName": "Paramount",
+		"category": "Media",
+		"domains": [
+			"cbs.com",
+			"comedycentral.com",
+			"mtv.com",
+			"nickelodeon.com",
+			"paramountplus.com",
+			"paramountpictures.com",
+			"showtime.com"
+		]
+	},
+	{
+		"name": "Qatar Airways",
+		"displayName": "Qatar Airways",
+		"category": "Travel: Airlines",
+		"domains": [
+			"qatarairways.com"
+		]
+	},
+	{
+		"name": "Radisson Hotels",
+		"displayName": "Radisson Hotels",
+		"category": "Travel: Hotels",
+		"domains": [
+			"radissonhotels.com",
+			"radissonblu.com",
+			"parkinn.com",
+			"countryinns.com",
+			"carlsbadhotel.com",
+			"artotel.com"
+		]
+	},
+	{
+		"name": "Reddit",
+		"displayName": "Reddit",
+		"category": "Social Media",
+		"domains": [
+			"redd.it",
+			"reddit.com",
+			"redditblog.com",
+			"redditgifts.com"
+		]
+	},
+	{
+		"name": "Reuters",
+		"displayName": "Reuters",
+		"category": "News",
+		"domains": [
+			"reuters.com"
+		]
+	},
+	{
+		"name": "Ryanair",
+		"displayName": "Ryanair",
+		"category": "Travel: Airlines",
+		"domains": [
+			"ryanair.com"
+		]
+	},
+	{
+		"name": "Singapore Airlines",
+		"displayName": "Singapore Airlines",
+		"category": "Travel: Airlines",
+		"domains": [
+			"singaporeair.com.sg",
+			"silkair.com",
+			"Scoot.com.sg"
+		]
+	},
+	{
+		"name": "Sixt",
+		"displayName": "Sixt",
+		"category": "Travel: Car Rentals",
+		"domains": [
+			"sixt.*"
+		]
+	},
+	{
+		"name": "Southwest",
+		"displayName": "Southwest",
+		"category": "Travel: Airlines",
+		"domains": [
+			"southwest.com"
+		]
+	},
+	{
+		"name": "Spotify",
+		"displayName": "Spotify",
+		"category": "Media",
+		"domains": [
+			"spotify.com"
+		]
+	},
+	{
+		"name": "The Atlantic",
+		"displayName": "The Atlantic",
+		"category": "News",
+		"domains": [
+			"theatlantic.com"
+		]
+	},
+	{
+		"name": "The Guardian",
+		"displayName": "The Guardian",
+		"category": "News",
+		"domains": [
+			"theguardian.com"
+		]
+	},
+	{
+		"name": "The Washington Post",
+		"displayName": "The Washington Post",
+		"category": "News",
+		"domains": [
+			"washingtonpost.com"
+		]
+	},
+	{
+		"name": "TikTok",
+		"displayName": "TikTok",
+		"category": "Social Media",
+		"domains": [
+			"tiktok.com"
+		]
+	},
+	{
+		"name": "Turo",
+		"displayName": "Turo",
+		"category": "Travel: Car Rentals",
+		"domains": [
+			"turo.com"
+		]
+	},
+	{
+		"name": "Twitter / X",
+		"displayName": "Twitter / X",
+		"category": "Social Media",
+		"domains": [
+			"t.co",
+			"twitter.com",
+			"x.com"
+		]
+	},
+	{
+		"name": "USA Today",
+		"displayName": "USA Today",
+		"category": "News",
+		"domains": [
+			"usatoday.com"
+		]
+	},
+	{
+		"name": "United",
+		"displayName": "United",
+		"category": "Travel: Airlines",
+		"domains": [
+			"united.com",
+			"unitedairlines.com"
+		]
+	},
+	{
+		"name": "Wall Street Journal",
+		"displayName": "Wall Street Journal",
+		"category": "News",
+		"domains": [
+			"wsj.com"
+		]
+	},
+	{
+		"name": "Walmart",
+		"displayName": "Walmart",
+		"category": "E-Commerce",
+		"domains": [
+			"walmart.com"
+		]
+	},
+	{
+		"name": "Warner Bros",
+		"displayName": "Warner Bros",
+		"category": "Media",
+		"domains": [
+			"animalplanet.com",
+			"cartoonnetwork.com",
+			"cnn.com",
+			"dccomics.com",
+			"discovery.com",
+			"discoverychannel.com",
+			"discoverygo.com",
+			"discoveryplus.com",
+			"hbomax.com",
+			"motortrend.com",
+			"own.com",
+			"playstation.com",
+			"sciencechannel.com",
+			"tbs.com",
+			"thewb.com",
+			"truTV.com",
+			"turner.com",
+			"warnerbros.com",
+			"warnermusic.com",
+			"wb.com",
+			"wbshop.com",
+			"windows.com"
+		]
+	},
+	{
+		"name": "Wyndham",
+		"displayName": "Wyndham",
+		"category": "Travel: Hotels",
+		"domains": [
+			"wyndhamhotels.com",
+			"ramada.com",
+			"daysinn.com",
+			"super8.com",
+			"travelodge.com",
+			"microtelinn.com",
+			"laquinta.com",
+			"wingate.com",
+			"hawthorn.com",
+			"baymontinns.com",
+			"americasbestvalueinn.com"
+		]
+	},
+	{
+		"name": "easyJet",
+		"displayName": "easyJet",
+		"category": "Travel: Airlines",
+		"domains": [
+			"easyjet.com"
+		]
+	}
+]

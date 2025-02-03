@@ -40,7 +40,7 @@ async function moveTabToContainer(details, containerId) {
 function isMatchingDomain(url, pattern) {
   const multiLevelTLDs = ["co.in", "co.jp", "co.mx", "co.nz", "co.tr", "co.uk", "com.au", "com.br", "com.sa"];
   const currentUrl = new URL(url);
-  let domain = currentUrl.hostname;
+  const domain = currentUrl.hostname;
 
   const parts = domain.split(".");
   
@@ -65,14 +65,14 @@ function isMatchingDomain(url, pattern) {
 
 browser.webRequest.onBeforeRequest.addListener(
   async (details) => {
-    let shouldHaveContainer = false;
+    let shouldBeInContainer = false;
 
     const tab = await browser.tabs.get(details.tabId);
 
     const localStorageData = await browser.storage.local.get("containerSettings");
     const localContainerSettings = localStorageData.containerSettings || {};
 
-    for (const container of CONTAINER_CONFIG.containers) {
+    for (const container of CONTAINER_CONFIG) {
       const { name, enabledDefault, domains } = container;
 
       const localContainerSetting = localContainerSettings[name] || {};
@@ -82,9 +82,9 @@ browser.webRequest.onBeforeRequest.addListener(
         continue;
       }
 
-      const doesDomainMatchContainer = domains.some((d) => isMatchingDomain(details.url, d));
+      const doesDomainMatchContainer = domains.some((configDomain) => isMatchingDomain(details.url, configDomain));
       if (doesDomainMatchContainer) {
-		shouldHaveContainer = true;
+		shouldBeInContainer = true;
 
 		const containerId = await findOrCreateContainer(name, localContainerSetting.color || "red", "fence");
 		const isAlreadyInCorrectContainer = tab.cookieStoreId === containerId
@@ -98,7 +98,7 @@ browser.webRequest.onBeforeRequest.addListener(
     }
 	
 	const isAlreadyInContainer = !DEFAULT_CONTAINER_IDS.includes(tab.cookieStoreId)
-	if (!shouldHaveContainer && isAlreadyInContainer) {
+	if (!shouldBeInContainer && isAlreadyInContainer) {
 	  await moveTabToContainer (details, null)
     }
 	
