@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Containers</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f7fa;
+      color: #333;
+      max-width: 275px;
+    }
+    h1 {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+    p.subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 22px;
+    }
+    .container-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border-left: 5px solid;
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .container-card .color-indicator {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-left: 10px;
+    }
+
+    .enabled { 
+      background-color: #d4f8d4; 
+      border-left-color: #2a7a2a; 
+    }
+	
+    .disabled { 
+      background-color: #fde2e2; 
+      border-left-color: #aa2e2e; 
+    }
+
+    .divider {
+      width: 100%;
+      height: 3px;
+      background-color: #ccc;
+      margin: 20px 0;
+      border: none;
+    }
+
+    .purge-all {
+      background: #dc3545;
+      color: white;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+	
+	.purge-all:hover {
+      background: #c82333;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <h1>Smart Containers</h1>
+  <p class="subtitle">Select organizations below to isolate them into containers for enhanced privacy and a safer browsing experience.</p>
+
+  <div id="containers"></div>
+  <div class="divider"></div>
+  <button class="purge-all" id="purgeAll">Purge Containers</button>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
