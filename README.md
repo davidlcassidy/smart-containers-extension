@@ -1,4 +1,3 @@
-
 # **Smart Containers**
 
 ## **Overview**
@@ -11,16 +10,16 @@ Smart Containers is a **Firefox** extension that automatically organizes your ta
 
 ✅ Automatically isolates websites into separate containers  
 ✅ Prevents cross-site tracking and enhances security  
-✅ Customizable container color 
-✅ One-click purge button to clear container cookies and session data
+✅ Customizable container color  
+✅ One-click purge button to clear container cookies and session data  
 
 ## **Installation**
 
-### **🦊 Firefox**
+### **Firefox Add-ons Store**
 
-📥 [Download from Firefox Add-ons Store](https://addons.mozilla.org/en-US/firefox/addon/smart-containers/)
+Click [here](https://addons.mozilla.org/en-US/firefox/addon/smart-containers/) to install.
 
-**Manual Installation:**
+### **Manual**
 
 1.  Clone the repository:
     
@@ -57,11 +56,11 @@ Smart Containers is a **Firefox** extension that automatically organizes your ta
 
 ## **Required Permissions**
 
--   **webRequest & webRequestBlocking** → Intercepts network requests to assign them to containers.
--   **cookies** → Ensures session isolation per container.
--   **tabs** → Moves tabs into the appropriate container.
--   **storage** → Saves user preferences for assigned containers.
--   **contextualIdentities** → Required for managing Firefox containers.
+-   **webRequest & webRequestBlocking:** Intercepts network requests to assign them to containers.
+-   **cookies:** Ensures session isolation per container.
+-   **tabs:** Moves tabs into the appropriate container.
+-   **storage:** Saves user preferences for assigned containers.
+-   **contextualIdentities:** Required for managing Firefox containers.
 
 ## **Contributing**
 
@@ -69,4 +68,4 @@ Pull requests are welcome! If you have suggestions or improvements, open an issu
 
 ## **License**
 
-This project is licensed under the GNU GPLv3 License - see the [LICENSE](https://github.com/davidlcassidy/smart-containers-extension/blob/master/LICENSE) file for details.
+This project is licensed under the GNU GPLv3 License. See the [LICENSE](https://github.com/davidlcassidy/smart-containers-extension/blob/master/LICENSE) file for details.
